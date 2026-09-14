@@ -1,10 +1,14 @@
 .code16
 .globl start
 start:
-movb $0x0e, %ah
-movb hello, %al  # what is moved into %al ?
-movb $0,    %bh
-movb $7,    %bl
+movb $0x13, %ah # instruction 0x13h (write string)
+lea  hello, %bp # string pointer
+movb 2, %al  # write mode, cursor moves
+movb $0,    %bh # page number
+mov $12, %cx # length of string
+movb $8, %dh # row number
+movb $0, %dl # col number
+movb $7,    %bl # color
 int $0x10
 
 stop:
