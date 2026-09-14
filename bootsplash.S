@@ -4,13 +4,24 @@
 .code16
 .global start
 start:
+movb $0x03, %ah # instruction 0x03h (get cursor position) sets DH and DL with row and col respectivly
+int $0x10
+movb $0x13, %ah # instruction 0x13h (write string)
+lea  startmsg, %bp # string pointer
+movb $1, %al  # write mode, cursor moves
+movb $0,    %bh # page number
+mov $45, %cx # length of string
+movb $7,    %bl # color
+int $0x10
 
+movb $0x00, %ah # instruction 0x00 (read keypress)
+int $0x16
 
+movb $0x00, %ah # switch to video mode
+int $0x10
 
-
-// YOUR CODE GOES HERE
-
-
+startmsg:
+.string "Welcome to xv6@UIC. Press any key to continue"
 
 
 # Change to 32-bit protected mode so we can run C code
