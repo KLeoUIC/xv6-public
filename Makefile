@@ -233,6 +233,6 @@ bootsplash.img: bootsplash.S splashmain.c
 	$(CC) -m32 -fno-builtin -fno-asynchronous-unwind-tables -fno-unwind-tables -c splashmain.c -o splashmain.o
 	$(LD) -m elf_i386 -N -Ttext=0x7c00 -e start bootsplash.o splashmain.o -o bootsplashlinked.o
 	$(OBJCOPY) -O binary bootsplashlinked.o bootsplash.img
-#	./sign.pl bootsplash.img   
+	./sign.pl bootsplash.img  
 
 .PHONY: dist-test dist clean

@@ -18,6 +18,7 @@ movb $0x00, %ah # instruction 0x00 (read keypress)
 int $0x16
 
 movb $0x00, %ah # switch to video mode
+movb $0x13, %al # 320x200 256 color graphics (MCGA,VGA)
 int $0x10
 
 startmsg:
