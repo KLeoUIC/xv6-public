@@ -230,9 +230,10 @@ bootskel.img: bootskel.S
 bootsplash.img: bootsplash.S splashmain.c
 	$(CC) -E bootsplash.S -o bootsplash.pre
 	$(AS) --32 bootsplash.pre -o bootsplash.o
-	$(CC) -m32 -fno-builtin -fno-asynchronous-unwind-tables -fno-unwind-tables -c splashmain.c -o splashmain.o
+	$(CC) -Os -m32 -fno-builtin -fno-asynchronous-unwind-tables -fno-unwind-tables -c splashmain.c -o splashmain.o
 	$(LD) -m elf_i386 -N -Ttext=0x7c00 -e start bootsplash.o splashmain.o -o bootsplashlinked.o
 	$(OBJCOPY) -O binary bootsplashlinked.o bootsplash.img
-	./sign.pl bootsplash.img  
+	./sign.pl bootsplash.img
+	dd if=cover.raw of=bootsplash.img seek=1
 
 .PHONY: dist-test dist clean

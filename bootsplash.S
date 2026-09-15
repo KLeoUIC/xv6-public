@@ -21,10 +21,6 @@ movb $0x00, %ah # switch to video mode
 movb $0x13, %al # 320x200 256 color graphics (MCGA,VGA)
 int $0x10
 
-startmsg:
-.string "Welcome to xv6@UIC. Press any key to continue"
-
-
 # Change to 32-bit protected mode so we can run C code
 cli
 lgdt    gdtdesc
@@ -58,3 +54,6 @@ gdt:
 gdtdesc:
   .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
   .long   gdt                             # address gdt
+
+startmsg:
+.string "Welcome to xv6@UIC. Press any key to continue"
